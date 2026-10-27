@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://wcxhnq.csb.app/sitemap.xml
