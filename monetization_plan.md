@@ -65,7 +65,7 @@ All 10 companies below are verified in `/workspace/septic-directory/data/provide
 > Would you like me to reserve the Featured Hauler spot for [Company Name], or is there a preferred email/cell number where we should forward homeowner quote requests in your area?
 >
 > Best regards,  
-> David Recchion  
+> 603 Septic Pros Team  
 > Danville, NH
 
 ---
