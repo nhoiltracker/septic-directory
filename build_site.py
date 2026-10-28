@@ -1139,6 +1139,7 @@ def main():
     build_index_page(data)
     build_town_pages(data)
     build_seo_files(data)
+    import tracker_addon; tracker_addon.inject_into_site()
 
 
 if __name__ == "__main__":

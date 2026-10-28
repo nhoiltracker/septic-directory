@@ -1,0 +1,862 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Live Visit &amp; Hauler Click Tracker — Southern NH &amp; Northern MA Septic Directory</title>
+  <meta name="description" content="Live visitor analytics, town page traffic, calculator usage, and septic hauler call/website click tracking for the Southern NH &amp; Northern MA Septic Directory." />
+  <style>
+:root {
+  --bg: #f8fafc;
+  --surface: #ffffff;
+  --surface-alt: #f1f5f9;
+  --forest: #0f291e;
+  --forest-mid: #163a2b;
+  --slate: #475569;
+  --muted: #64748b;
+  --border: #e2e8f0;
+  --emerald: #059669;
+  --emerald-dark: #047857;
+  --emerald-soft: #d1fae5;
+  --amber: #d97706;
+  --amber-soft: #fef3c7;
+  --red: #dc2626;
+  --red-soft: #fee2e2;
+  --blue: #0284c7;
+  --blue-soft: #e0f2fe;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  background: var(--bg);
+  color: #0f172a;
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+}
+a { color: var(--emerald-dark); text-decoration: none; }
+a:hover { text-decoration: underline; }
+.topbar {
+  background: var(--forest);
+  color: #f8fafc;
+  font-size: 0.82rem;
+  padding: 0.5rem 1.25rem;
+  border-bottom: 2px solid var(--emerald);
+}
+.topbar-inner {
+  max-width: 1240px;
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+.live-dot {
+  display: inline-block;
+  width: 8px;
+  height: 8px;
+  background: #34d399;
+  border-radius: 50%;
+  margin-right: 6px;
+  box-shadow: 0 0 0 3px rgba(52,211,153,0.25);
+}
+header.hero {
+  background: linear-gradient(135deg, #0f291e 0%, #163a2b 100%);
+  color: #ffffff;
+  padding: 2.25rem 1.25rem 2.1rem;
+}
+.container {
+  max-width: 1240px;
+  margin: 0 auto;
+}
+.hero-grid {
+  display: grid;
+  grid-template-columns: 1.3fr 1fr;
+  gap: 1.5rem;
+  align-items: center;
+}
+.badge-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  background: rgba(16, 185, 129, 0.2);
+  border: 1px solid rgba(52, 211, 153, 0.45);
+  color: #6ee7b7;
+  font-size: 0.78rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  padding: 0.28rem 0.75rem;
+  border-radius: 999px;
+  margin-bottom: 0.75rem;
+}
+h1 {
+  font-size: 2.02rem;
+  line-height: 1.18;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  margin-bottom: 0.65rem;
+}
+.hero-sub {
+  color: #d1fae5;
+  font-size: 0.98rem;
+  max-width: 650px;
+}
+.quote-card {
+  background: rgba(255, 255, 255, 0.07);
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  border-radius: 12px;
+  padding: 1.15rem 1.25rem;
+}
+.quote-card h3 {
+  font-size: 1rem;
+  margin-bottom: 0.3rem;
+  color: #fff;
+}
+.quote-card p {
+  font-size: 0.82rem;
+  color: #d1fae5;
+  margin-bottom: 0.75rem;
+}
+.quote-form {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.45rem;
+}
+.quote-form input, .quote-form select {
+  padding: 0.52rem 0.65rem;
+  border-radius: 7px;
+  border: 1px solid #335d49;
+  background: #0a1f16;
+  color: #fff;
+  font-size: 0.84rem;
+}
+.quote-confirm {
+  display: none;
+  margin-top: 0.65rem;
+  padding: 0.75rem 0.85rem;
+  border-radius: 8px;
+  background: rgba(6, 95, 70, 0.85);
+  border: 1px solid #34d399;
+  color: #ecfdf5;
+  font-size: 0.81rem;
+  line-height: 1.45;
+}
+.quote-confirm a {
+  color: #6ee7b7;
+  font-weight: 700;
+}
+.btn-primary {
+  background: var(--emerald);
+  color: #fff;
+  font-weight: 700;
+  font-size: 0.86rem;
+  padding: 0.55rem 1rem;
+  border-radius: 7px;
+  border: none;
+  cursor: pointer;
+  white-space: nowrap;
+}
+.btn-primary:hover { background: var(--emerald-dark); text-decoration: none; }
+.kpi-strip {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1rem;
+  margin-top: -1.1rem;
+  margin-bottom: 1.5rem;
+  padding: 0 1.25rem;
+}
+.kpi-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 1.1rem 1.2rem;
+  box-shadow: 0 4px 12px rgba(15, 23, 42, 0.05);
+}
+.kpi-card.pumping { border-top: 4px solid var(--emerald); }
+.kpi-card.nh-insp { border-top: 4px solid var(--blue); }
+.kpi-card.title5 { border-top: 4px solid var(--amber); }
+.kpi-card.emerg { border-top: 4px solid var(--red); }
+.kpi-label {
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--muted);
+  font-weight: 700;
+}
+.kpi-value {
+  font-size: 1.65rem;
+  font-weight: 800;
+  color: #0f172a;
+  margin: 0.2rem 0;
+  letter-spacing: -0.02em;
+}
+.kpi-meta {
+  font-size: 0.81rem;
+  color: var(--slate);
+}
+.kpi-meta strong { color: var(--emerald-dark); }
+main {
+  padding: 0 1.25rem 3rem;
+}
+.featured-banner {
+  background: linear-gradient(90deg, #ecfdf5 0%, #d1fae5 100%);
+  border: 1px solid #6ee7b7;
+  border-left: 5px solid var(--emerald);
+  border-radius: 12px;
+  padding: 1rem 1.25rem;
+  margin-bottom: 1.25rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+.featured-tag {
+  display: inline-block;
+  background: var(--emerald-dark);
+  color: #fff;
+  font-size: 0.7rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  padding: 0.18rem 0.55rem;
+  border-radius: 4px;
+  margin-right: 0.5rem;
+  letter-spacing: 0.04em;
+}
+.calc-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 1.2rem 1.35rem;
+  margin-bottom: 1.25rem;
+  box-shadow: 0 2px 8px rgba(15, 23, 42, 0.04);
+}
+.calc-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr) 1.3fr;
+  gap: 0.85rem;
+  align-items: center;
+  margin-top: 0.75rem;
+}
+.calc-field label {
+  display: block;
+  font-size: 0.76rem;
+  font-weight: 700;
+  color: var(--slate);
+  margin-bottom: 0.25rem;
+  text-transform: uppercase;
+}
+.select-input {
+  width: 100%;
+  padding: 0.48rem 0.7rem;
+  border-radius: 8px;
+  border: 1px solid #cbd5e1;
+  font-size: 0.86rem;
+  font-weight: 600;
+  color: #0f172a;
+  background: #fff;
+}
+.calc-output {
+  background: #f0fdf4;
+  border: 1px solid #bbf7d0;
+  border-radius: 10px;
+  padding: 0.75rem 1rem;
+}
+.calc-output-title {
+  font-size: 0.74rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  color: var(--emerald-dark);
+}
+.calc-output-val {
+  font-size: 1.15rem;
+  font-weight: 800;
+  color: #0f172a;
+  margin-top: 2px;
+}
+.calc-output-sub {
+  font-size: 0.78rem;
+  color: var(--slate);
+}
+.controls-bar {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 0.95rem 1.25rem;
+  margin-bottom: 1.25rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+.control-group {
+  display: flex;
+  align-items: center;
+  gap: 0.65rem;
+  flex-wrap: wrap;
+}
+.control-group label {
+  font-size: 0.84rem;
+  font-weight: 700;
+}
+.table-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 2px 8px rgba(15, 23, 42, 0.04);
+  margin-bottom: 2rem;
+}
+.table-header {
+  padding: 1rem 1.25rem;
+  border-bottom: 1px solid var(--border);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+.table-header h2 {
+  font-size: 1.15rem;
+  font-weight: 800;
+}
+.table-scroll { overflow-x: auto; }
+table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.88rem;
+}
+th {
+  background: var(--surface-alt);
+  color: var(--slate);
+  font-weight: 700;
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  text-align: left;
+  padding: 0.75rem 1rem;
+  border-bottom: 1px solid var(--border);
+  white-space: nowrap;
+}
+td {
+  padding: 0.85rem 1rem;
+  border-bottom: 1px solid var(--border);
+  vertical-align: middle;
+}
+tr:last-child td { border-bottom: none; }
+tr:hover td { background: #f8fafc; }
+tr.featured-row td { background: #f0fdf4; }
+.provider-name {
+  font-weight: 800;
+  color: #0f172a;
+  font-size: 0.96rem;
+}
+.provider-sub {
+  font-size: 0.78rem;
+  color: var(--muted);
+  margin-top: 2px;
+}
+.svc-badge {
+  display: inline-block;
+  font-size: 0.7rem;
+  font-weight: 700;
+  padding: 0.14rem 0.48rem;
+  border-radius: 4px;
+  margin: 2px 4px 2px 0;
+  background: #f1f5f9;
+  color: #334155;
+}
+.svc-emerg { background: var(--red-soft); color: var(--red); }
+.svc-title5 { background: var(--amber-soft); color: #92400e; }
+.svc-nhinsp { background: var(--blue-soft); color: var(--blue); }
+.svc-pump { background: var(--emerald-soft); color: var(--emerald-dark); }
+.price-range {
+  font-weight: 800;
+  color: #0f172a;
+  font-size: 0.95rem;
+}
+.phone-link {
+  font-weight: 700;
+  color: #0f172a;
+  white-space: nowrap;
+}
+.btn-quote {
+  display: inline-block;
+  padding: 0.42rem 0.75rem;
+  background: var(--forest);
+  color: #fff;
+  border-radius: 6px;
+  font-size: 0.78rem;
+  font-weight: 700;
+  white-space: nowrap;
+}
+.btn-quote:hover {
+  background: var(--emerald);
+  text-decoration: none;
+}
+.two-col {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.5rem;
+  margin-bottom: 2rem;
+}
+.section-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 1.25rem;
+}
+.section-card h3 {
+  font-size: 1.08rem;
+  font-weight: 800;
+  margin-bottom: 0.4rem;
+}
+.town-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 0.85rem;
+  margin-top: 1rem;
+}
+.town-tile {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 0.9rem 1rem;
+  transition: transform 0.12s ease, border-color 0.12s ease;
+  display: block;
+}
+.town-tile:hover {
+  border-color: var(--emerald);
+  transform: translateY(-2px);
+  text-decoration: none;
+}
+.town-tile-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  margin-bottom: 0.25rem;
+}
+.town-tile-name {
+  font-weight: 800;
+  color: #0f172a;
+  font-size: 0.95rem;
+}
+.town-tile-price {
+  font-weight: 800;
+  color: var(--emerald-dark);
+  font-size: 0.86rem;
+}
+.town-tile-meta {
+  font-size: 0.76rem;
+  color: var(--muted);
+}
+.hauler-cta {
+  background: linear-gradient(135deg, #0f291e 0%, #163a2b 100%);
+  color: #fff;
+  border-radius: 12px;
+  padding: 1.5rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 1.25rem;
+  margin-top: 2rem;
+}
+footer {
+  background: var(--forest);
+  color: #94a3b8;
+  font-size: 0.82rem;
+  padding: 2rem 1.25rem;
+}
+@media (max-width: 960px) {
+  .hero-grid, .two-col, .calc-grid { grid-template-columns: 1fr; }
+  .kpi-strip { grid-template-columns: repeat(2, 1fr); }
+}
+</style>
+</head>
+<body>
+  <div class="topbar">
+    <div class="topbar-inner">
+      <div><a href="index.html" style="color:#6ee7b7;font-weight:700;">&larr; Back to Main Septic Directory</a></div>
+      <div><span class="live-dot"></span><strong>Live Directory Visit &amp; Lead Tracker</strong> &middot; <span data-live-views>Live Visits</span></div>
+    </div>
+  </div>
+
+  <header class="hero" style="padding:1.8rem 0 2.2rem;">
+    <div class="container">
+      <div class="badge-pill">📊 Real-Time Directory Traffic &amp; Sponsor Lead Attribution</div>
+      <h1>Live Visit, Town Traffic &amp; Hauler Click Tracker</h1>
+      <p class="hero-sub">
+        Track homeowner visits across all 16 Rockingham County NH &amp; Northern MA town pages, pumping calculator runs, quote requests, and outbound phone/website clicks to each licensed septic company.
+      </p>
+    </div>
+  </header>
+
+  <section class="container kpi-strip" style="margin-top:-1.4rem;">
+    <div class="kpi-card pumping">
+      <div class="kpi-label">Total Directory Visits</div>
+      <div class="kpi-value" id="statTotalViews">1</div>
+      <div class="kpi-meta">Synced across live session &amp; global counter</div>
+    </div>
+    <div class="kpi-card nh-insp">
+      <div class="kpi-label">Hauler Call &amp; Website Clicks</div>
+      <div class="kpi-value" id="statProviderClicks">0</div>
+      <div class="kpi-meta">Direct outbound homeowner leads to haulers</div>
+    </div>
+    <div class="kpi-card title5">
+      <div class="kpi-label">Pumping Calculator Runs</div>
+      <div class="kpi-value" id="statCalcRuns">0</div>
+      <div class="kpi-meta">Interactive cost &amp; schedule estimates</div>
+    </div>
+    <div class="kpi-card emerg">
+      <div class="kpi-label">Homeowner Quote Requests</div>
+      <div class="kpi-value" id="statQuoteSubmits">0</div>
+      <div class="kpi-meta">Routed via <a href="mailto:603septicpros@mail.grokbot.com">603septicpros@mail.grokbot.com</a></div>
+    </div>
+  </section>
+
+  <main class="container">
+    <div class="two-col">
+      <div class="table-card" style="margin-bottom:0;">
+        <div class="table-header">
+          <h2>📞 Hauler Call &amp; Website Click Leaderboard</h2>
+          <span style="font-size:0.78rem;color:#64748b;">Proof of leads for $99/mo Featured Sponsors</span>
+        </div>
+        <div class="table-scroll">
+          <table>
+            <thead>
+              <tr>
+                <th>Septic Company</th>
+                <th>Phone Clicks</th>
+                <th>Website Clicks</th>
+                <th>Total Leads</th>
+              </tr>
+            </thead>
+            <tbody id="provStatTbody">
+              <tr data-prov-name="Bodwell's Septic Service, LLC"><td><strong>Bodwell's Septic Service, LLC</strong> (East Kingston, NH)</td><td class="p-calls">0</td><td class="p-webs">0</td><td class="p-total" style="font-weight:800;color:#047857;">0</td></tr>
+<tr data-prov-name="Pete's Sewer Service"><td><strong>Pete's Sewer Service</strong> (Plaistow, NH)</td><td class="p-calls">0</td><td class="p-webs">0</td><td class="p-total" style="font-weight:800;color:#047857;">0</td></tr>
+<tr data-prov-name="C.B. LaFrance Septic Services"><td><strong>C.B. LaFrance Septic Services</strong> (Salem / Pelham, NH)</td><td class="p-calls">0</td><td class="p-webs">0</td><td class="p-total" style="font-weight:800;color:#047857;">0</td></tr>
+<tr data-prov-name="Epping & Exeter Septic Service"><td><strong>Epping & Exeter Septic Service</strong> (Epping / Exeter, NH)</td><td class="p-calls">0</td><td class="p-webs">0</td><td class="p-total" style="font-weight:800;color:#047857;">0</td></tr>
+<tr data-prov-name="Greg's Septic Service (K.G. Blood & Sons)"><td><strong>Greg's Septic Service (K.G. Blood & Sons)</strong> (Stratham, NH)</td><td class="p-calls">0</td><td class="p-webs">0</td><td class="p-total" style="font-weight:800;color:#047857;">0</td></tr>
+<tr data-prov-name="Rooter-Man (Daigle Enterprises Inc.)"><td><strong>Rooter-Man (Daigle Enterprises Inc.)</strong> (Lawrence / Salem, MA/NH)</td><td class="p-calls">0</td><td class="p-webs">0</td><td class="p-total" style="font-weight:800;color:#047857;">0</td></tr>
+<tr data-prov-name="Derry Septic Service, Inc."><td><strong>Derry Septic Service, Inc.</strong> (Londonderry / Derry, NH)</td><td class="p-calls">0</td><td class="p-webs">0</td><td class="p-total" style="font-weight:800;color:#047857;">0</td></tr>
+<tr data-prov-name="Boraczek Septic & Drain, Inc."><td><strong>Boraczek Septic & Drain, Inc.</strong> (Kingston, NH)</td><td class="p-calls">0</td><td class="p-webs">0</td><td class="p-total" style="font-weight:800;color:#047857;">0</td></tr>
+<tr data-prov-name="RCI Septic Service"><td><strong>RCI Septic Service</strong> (Londonderry, NH)</td><td class="p-calls">0</td><td class="p-webs">0</td><td class="p-total" style="font-weight:800;color:#047857;">0</td></tr>
+<tr data-prov-name="Kent Clean Septic Service"><td><strong>Kent Clean Septic Service</strong> (Hooksett, NH)</td><td class="p-calls">0</td><td class="p-webs">0</td><td class="p-total" style="font-weight:800;color:#047857;">0</td></tr>
+<tr data-prov-name="Septic Designs of NH, LLC"><td><strong>Septic Designs of NH, LLC</strong> (Exeter, NH)</td><td class="p-calls">0</td><td class="p-webs">0</td><td class="p-total" style="font-weight:800;color:#047857;">0</td></tr>
+<tr data-prov-name="Broadway Septic Design & Rejuvenation"><td><strong>Broadway Septic Design & Rejuvenation</strong> (Salem, NH)</td><td class="p-calls">0</td><td class="p-webs">0</td><td class="p-total" style="font-weight:800;color:#047857;">0</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <div class="table-card" style="margin-bottom:0;">
+        <div class="table-header">
+          <h2>🏘️ Visits by Town Page (16 Towns)</h2>
+          <span style="font-size:0.78rem;color:#64748b;">Rockingham County NH &amp; Essex County MA</span>
+        </div>
+        <div class="table-scroll">
+          <table>
+            <thead>
+              <tr>
+                <th>Town Page</th>
+                <th>Listed Haulers</th>
+                <th>Tracked Views</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr><td><a href="towns/danville-nh.html"><strong>Danville, NH</strong> (03819)</a></td><td>13 Pros</td><td id="town-stat-danville-nh">0</td></tr>
+<tr><td><a href="towns/hampstead-nh.html"><strong>Hampstead, NH</strong> (03841)</a></td><td>12 Pros</td><td id="town-stat-hampstead-nh">0</td></tr>
+<tr><td><a href="towns/kingston-nh.html"><strong>Kingston, NH</strong> (03848)</a></td><td>9 Pros</td><td id="town-stat-kingston-nh">0</td></tr>
+<tr><td><a href="towns/sandown-nh.html"><strong>Sandown, NH</strong> (03873)</a></td><td>12 Pros</td><td id="town-stat-sandown-nh">0</td></tr>
+<tr><td><a href="towns/plaistow-nh.html"><strong>Plaistow, NH</strong> (03865)</a></td><td>11 Pros</td><td id="town-stat-plaistow-nh">0</td></tr>
+<tr><td><a href="towns/atkinson-nh.html"><strong>Atkinson, NH</strong> (03811)</a></td><td>13 Pros</td><td id="town-stat-atkinson-nh">0</td></tr>
+<tr><td><a href="towns/derry-nh.html"><strong>Derry, NH</strong> (03038)</a></td><td>10 Pros</td><td id="town-stat-derry-nh">0</td></tr>
+<tr><td><a href="towns/londonderry-nh.html"><strong>Londonderry, NH</strong> (03053)</a></td><td>8 Pros</td><td id="town-stat-londonderry-nh">0</td></tr>
+<tr><td><a href="towns/salem-nh.html"><strong>Salem, NH</strong> (03079)</a></td><td>10 Pros</td><td id="town-stat-salem-nh">0</td></tr>
+<tr><td><a href="towns/exeter-nh.html"><strong>Exeter, NH</strong> (03833)</a></td><td>8 Pros</td><td id="town-stat-exeter-nh">0</td></tr>
+<tr><td><a href="towns/epping-nh.html"><strong>Epping, NH</strong> (03042)</a></td><td>9 Pros</td><td id="town-stat-epping-nh">0</td></tr>
+<tr><td><a href="towns/raymond-nh.html"><strong>Raymond, NH</strong> (03077)</a></td><td>11 Pros</td><td id="town-stat-raymond-nh">0</td></tr>
+<tr><td><a href="towns/chester-nh.html"><strong>Chester, NH</strong> (03036)</a></td><td>10 Pros</td><td id="town-stat-chester-nh">0</td></tr>
+<tr><td><a href="towns/haverhill-ma.html"><strong>Haverhill, MA</strong> (01830)</a></td><td>8 Pros</td><td id="town-stat-haverhill-ma">0</td></tr>
+<tr><td><a href="towns/amesbury-ma.html"><strong>Amesbury, MA</strong> (01913)</a></td><td>8 Pros</td><td id="town-stat-amesbury-ma">0</td></tr>
+<tr><td><a href="towns/methuen-ma.html"><strong>Methuen, MA</strong> (01844)</a></td><td>8 Pros</td><td id="town-stat-methuen-ma">0</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <div class="section-card">
+      <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:0.5rem;margin-bottom:0.65rem;">
+        <h3 style="margin:0;">🕒 Recent Tracked Visitor &amp; Lead Activity</h3>
+        <button class="btn-quote" onclick="refreshStatsDashboard()" style="cursor:pointer;">🔄 Refresh Live Counts</button>
+      </div>
+      <div id="recentEventsBox" style="font-size:0.84rem;color:#334155;display:grid;gap:0.4rem;">
+        <div>Loading live visitor events...</div>
+      </div>
+    </div>
+  </main>
+
+  <footer>
+    <div class="container" style="display:flex;justify-content:space-between;flex-wrap:wrap;gap:1rem;">
+      <div>
+        <strong style="color:#fff;">Southern NH &amp; Northern MA Septic Directory — Analytics</strong><br />
+        Sponsor &amp; Partner Inquiries: <a href="mailto:603septicpros@mail.grokbot.com" style="color:#6ee7b7;">603septicpros@mail.grokbot.com</a>
+      </div>
+      <div>
+        <a href="index.html" style="color:#6ee7b7;font-weight:700;">&larr; Return to Main Directory</a>
+      </div>
+    </div>
+  </footer>
+  
+<!-- Visit & Hauler-Click Tracker + Live Analytics Bar -->
+<style>
+  .tracker-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.45rem;
+    background: rgba(16, 185, 129, 0.16);
+    border: 1px solid rgba(110, 231, 183, 0.4);
+    color: #ecfdf5;
+    padding: 0.22rem 0.65rem;
+    border-radius: 999px;
+    font-size: 0.76rem;
+    font-weight: 700;
+    text-decoration: none;
+  }
+  .tracker-pill:hover { background: rgba(16, 185, 129, 0.28); text-decoration: none; }
+  .faq-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 0.85rem; margin-top: 0.75rem; }
+  .faq-item { background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 10px; padding: 0.85rem 1rem; }
+  .faq-item h4 { font-size: 0.92rem; color: #0f172a; margin-bottom: 0.3rem; }
+  .faq-item p { font-size: 0.84rem; color: #475569; margin: 0; }
+  @media (max-width: 820px) { .faq-grid { grid-template-columns: 1fr; } }
+</style>
+<script>
+(function() {
+  const STORAGE_KEY = 'septic_dir_analytics_v1';
+  const VISITOR_KEY = 'septic_dir_visitor_id';
+  const SESSION_KEY = 'septic_dir_session_counted';
+  const CounterNS = 'nhmasepticdirectory2026';
+
+  function getVisitorId() {
+    try {
+      let vid = localStorage.getItem(VISITOR_KEY);
+      if (!vid) {
+        vid = 'v_' + Math.random().toString(36).slice(2, 10) + '_' + Date.now().toString(36);
+        localStorage.setItem(VISITOR_KEY, vid);
+      }
+      return vid;
+    } catch (e) { return 'v_anon'; }
+  }
+
+  function loadStats() {
+    try {
+      const raw = localStorage.getItem(STORAGE_KEY);
+      if (raw) return JSON.parse(raw);
+    } catch (e) {}
+    return {
+      total_views: 0,
+      unique_visitors: 1,
+      calc_runs: 0,
+      quote_submits: 0,
+      pages: {},
+      towns: {},
+      providers: {},
+      events: []
+    };
+  }
+
+  function saveStats(st) {
+    try { localStorage.setItem(STORAGE_KEY, JSON.stringify(st)); } catch (e) {}
+  }
+
+  function currentPageSlug() {
+    const p = window.location.pathname || '/';
+    if (p.indexOf('/towns/') !== -1) {
+      return p.split('/towns/')[1].replace('.html', '') || 'town';
+    }
+    if (p.indexOf('stats.html') !== -1) return 'stats';
+    return 'home';
+  }
+
+  function recordEvent(type, detail) {
+    const st = loadStats();
+    const slug = currentPageSlug();
+    if (type === 'pageview') {
+      st.total_views = (st.total_views || 0) + 1;
+      st.pages[slug] = (st.pages[slug] || 0) + 1;
+      if (slug !== 'home' && slug !== 'stats') {
+        st.towns[slug] = (st.towns[slug] || 0) + 1;
+      }
+    } else if (type === 'calc') {
+      st.calc_runs = (st.calc_runs || 0) + 1;
+    } else if (type === 'quote') {
+      st.quote_submits = (st.quote_submits || 0) + 1;
+    } else if (type === 'provider_click' && detail && detail.provider) {
+      const pName = detail.provider;
+      if (!st.providers[pName]) st.providers[pName] = { calls: 0, websites: 0, total: 0 };
+      if (detail.kind === 'call') st.providers[pName].calls += 1;
+      else st.providers[pName].websites += 1;
+      st.providers[pName].total += 1;
+    }
+    st.events = st.events || [];
+    st.events.unshift({
+      ts: new Date().toLocaleTimeString([], {hour: '2-digit', minute: '2-digit'}),
+      date: new Date().toLocaleDateString(),
+      type: type,
+      page: slug,
+      detail: detail || {}
+    });
+    if (st.events.length > 40) st.events = st.events.slice(0, 40);
+    saveStats(st);
+
+    // Also post to local /api/track when reachable
+    fetch('/api/track', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        event_type: type,
+        page: window.location.pathname || '/',
+        town: (detail && detail.town) || slug,
+        provider_id: (detail && detail.provider_id) || '',
+        provider_name: (detail && detail.provider) || '',
+        visitor_id: getVisitorId()
+      })
+    }).catch(function() {});
+
+    // Sync global visit counter via CounterAPI
+    if (type === 'pageview') {
+      fetch('https://api.counterapi.dev/v1/' + CounterNS + '/pageviews/up')
+        .then(function(r) { return r.json(); })
+        .then(function(d) {
+          if (d && typeof d.count === 'number') {
+            try { localStorage.setItem('septic_global_views', String(d.count)); } catch (e) {}
+            updateLiveBadges(d.count, st);
+          }
+        })
+        .catch(function() {
+          updateLiveBadges(null, st);
+        });
+    } else {
+      updateLiveBadges(null, st);
+    }
+  }
+
+  function updateLiveBadges(remoteCount, st) {
+    const storedGlobal = parseInt(localStorage.getItem('septic_global_views') || '0', 10);
+    const views = Math.max(remoteCount || 0, storedGlobal, st.total_views || 1);
+    document.querySelectorAll('[data-live-views]').forEach(function(el) {
+      el.textContent = views.toLocaleString() + ' Live Visits';
+    });
+  }
+
+  window.septicTracker = { recordEvent: recordEvent, loadStats: loadStats };
+
+  document.addEventListener('DOMContentLoaded', function() {
+    recordEvent('pageview', { path: window.location.pathname });
+
+    // Attach click tracking to all phone & website links
+    document.querySelectorAll('a.phone-link, a.btn-quote, .featured-banner a').forEach(function(a) {
+      a.addEventListener('click', function() {
+        const row = a.closest('tr');
+        let provName = 'Bodwell\'s Septic Service, LLC';
+        if (row) {
+          const nameEl = row.querySelector('.provider-name');
+          if (nameEl) provName = nameEl.textContent.replace('Featured Hauler', '').trim();
+        }
+        const isCall = (a.getAttribute('href') || '').indexOf('tel:') === 0;
+        recordEvent('provider_click', {
+          provider: provName,
+          kind: isCall ? 'call' : 'website',
+          href: a.getAttribute('href') || ''
+        });
+      });
+    });
+
+    // Hook calculator changes
+    ['calcPeople', 'calcTank', 'calcDisposal', 'calcLid'].forEach(function(id) {
+      const el = document.getElementById(id);
+      if (el) {
+        el.addEventListener('change', function() {
+          recordEvent('calc', { tank: (document.getElementById('calcTank') || {}).value });
+        });
+      }
+    });
+
+    // Hook quote form submit
+    document.querySelectorAll('form.quote-form').forEach(function(f) {
+      f.addEventListener('submit', function() {
+        const townInput = f.querySelector('[name="town"]');
+        const svcInput = f.querySelector('[name="service"]');
+        recordEvent('quote', {
+          town: townInput ? townInput.value : '',
+          service: svcInput ? svcInput.value : ''
+        });
+      });
+    });
+  });
+})();
+</script>
+
+  <script>
+    function refreshStatsDashboard() {
+      const st = (window.septicTracker && window.septicTracker.loadStats()) || {};
+      const globalViews = parseInt(localStorage.getItem('septic_global_views') || '0', 10);
+      const totalViews = Math.max(globalViews, st.total_views || 1);
+      document.getElementById('statTotalViews').textContent = totalViews.toLocaleString();
+      document.getElementById('statCalcRuns').textContent = (st.calc_runs || 0).toLocaleString();
+
+      let quotesCount = st.quote_submits || 0;
+      try {
+        const savedLeads = JSON.parse(localStorage.getItem('septic_directory_leads') || '[]');
+        quotesCount = Math.max(quotesCount, savedLeads.length);
+      } catch (e) {}
+      document.getElementById('statQuoteSubmits').textContent = quotesCount.toLocaleString();
+
+      let totalProvClicks = 0;
+      const provMap = st.providers || {};
+      document.querySelectorAll('#provStatTbody tr').forEach(function(row) {
+        const name = row.getAttribute('data-prov-name');
+        const rec = provMap[name] || { calls: 0, websites: 0, total: 0 };
+        row.querySelector('.p-calls').textContent = rec.calls || 0;
+        row.querySelector('.p-webs').textContent = rec.websites || 0;
+        row.querySelector('.p-total').textContent = rec.total || 0;
+        totalProvClicks += (rec.total || 0);
+      });
+      document.getElementById('statProviderClicks').textContent = totalProvClicks.toLocaleString();
+
+      const townMap = st.towns || {};
+      Object.keys(townMap).forEach(function(slug) {
+        const cell = document.getElementById('town-stat-' + slug);
+        if (cell) cell.textContent = townMap[slug];
+      });
+
+      const evBox = document.getElementById('recentEventsBox');
+      const evs = st.events || [];
+      if (evs.length === 0) {
+        evBox.innerHTML = '<div>No recent events recorded in this browser yet. Browse a town page or click a hauler to test!</div>';
+      } else {
+        evBox.innerHTML = evs.slice(0, 12).map(function(e) {
+          return '<div style="padding:0.45rem 0.7rem;background:#f8fafc;border:1px solid #e2e8f0;border-radius:6px;">' +
+            '<strong>' + e.ts + '</strong> &middot; <span style="color:#047857;font-weight:700;">' + e.type.toUpperCase() + '</span> &middot; Page: <code>' + e.page + '</code> ' +
+            (e.detail && e.detail.provider ? ('&rarr; <strong>' + e.detail.provider + '</strong> (' + e.detail.kind + ')') : '') +
+          '</div>';
+        }).join('');
+      }
+
+      // Also merge from local server /api/stats if running
+      fetch('/api/stats').then(function(r) { return r.json(); }).then(function(srv) {
+        if (srv && srv.total_views) {
+          document.getElementById('statTotalViews').textContent = Math.max(totalViews, srv.total_views).toLocaleString();
+        }
+      }).catch(function() {});
+    }
+    document.addEventListener('DOMContentLoaded', function() {
+      setTimeout(refreshStatsDashboard, 150);
+    });
+  </script>
+</body>
+</html>

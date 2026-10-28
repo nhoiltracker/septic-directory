@@ -1,3 +1,3 @@
 User-agent: *
 Allow: /
-Sitemap: https://wcxhnq.csb.app/sitemap.xml
+Sitemap: https://nhoiltracker.github.io/septic-directory/sitemap.xml

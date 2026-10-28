@@ -475,12 +475,46 @@ footer {
   .kpi-strip { grid-template-columns: repeat(2, 1fr); }
 }
 </style>
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "How much does it cost to pump a 1,000-gallon septic tank in Southern NH?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "In Danville, Derry, Salem, Hampstead, Kingston, and Exeter NH, routine 1,000-gallon septic pumping averages $350 to $450, while 1,500-gallon tanks average $440 to $535."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Is a septic inspection required when selling a home in NH vs. Massachusetts?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "In Massachusetts (Haverhill, Amesbury, Methuen), a state-certified Title 5 inspection ($500-$850) is mandatory under 310 CMR 15.000 within 2 years of a home sale. In New Hampshire, buyers typically order an NH Real Estate Septic Evaluation ($375-$550), and waterfront homes require an NHDES Site Assessment under NH RSA 485-A:39."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How often should a residential septic tank be pumped?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "For a standard 3-bedroom home with a 1,000-gallon septic tank and 3 to 4 occupants, NHDES and EPA guidelines recommend pumping every 2.5 to 3 years."
+      }
+    }
+  ]
+}
+</script>
+
 </head>
 <body>
   <div class="topbar">
     <div class="topbar-inner">
       <div><span class="live-dot"></span><strong>VERIFIED SEPTAGE HAULER &amp; INSPECTOR DIRECTORY:</strong> NHDES &amp; MassDEP Title 5 Licensed Pros &middot; Updated 2026-10-27 05:08 AM ET</div>
-      <div>Primary Coverage: <strong>Danville, NH (03819), Rockingham County &amp; Merrimack Valley</strong> &middot; <a href="#town-directory" style="color:#6ee7b7;">Browse 16 Local Towns &darr;</a></div>
+      <div>Primary Coverage: <strong>Danville, NH (03819), Rockingham County &amp; Merrimack Valley</strong> &middot; <a href="#town-directory" style="color:#6ee7b7;">Browse 16 Local Towns &darr;</a> &middot; <a class="tracker-pill" href="stats.html">📊 <span data-live-views>Live Visits</span> &amp; Click Stats</a></div>
     </div>
   </div>
 
@@ -1266,6 +1300,29 @@ footer {
       </div>
     </section>
 
+    
+    <section class="section-card" id="septic-faq">
+      <h3>❓ Frequently Asked Questions: NH &amp; Northern MA Septic Pumping &amp; Inspections</h3>
+      <div class="faq-grid">
+        <div class="faq-item">
+          <h4>How much does it cost to pump a 1,000-gallon septic tank in Southern NH?</h4>
+          <p>In Danville, Derry, Salem, Hampstead, Kingston, and Exeter NH, routine 1,000-gallon septic pumping averages <strong>$350 to $450</strong> (1,500-gallon tanks run $440–$535). C.B. LaFrance publishes a flat $420 rate up to 1,000–1,500 gallons.</p>
+        </div>
+        <div class="faq-item">
+          <h4>Is a septic inspection required when selling a home in NH vs. Massachusetts?</h4>
+          <p>In <strong>Massachusetts (Haverhill, Amesbury, Methuen)</strong>, a certified <strong>Title 5 inspection ($500–$850)</strong> is required by law under 310 CMR 15.000 within 2 years of closing. In <strong>New Hampshire</strong>, home buyers order a standard <strong>NH Real Estate Septic Evaluation ($375–$550)</strong>, and waterfront properties require an NHDES Site Assessment under RSA 485-A:39.</p>
+        </div>
+        <div class="faq-item">
+          <h4>How often should a septic tank be pumped in Rockingham County?</h4>
+          <p>NHDES and the EPA recommend pumping a 1,000-gallon tank serving 3–4 people <strong>every 2.5 to 3 years</strong>. Homes using a kitchen garbage disposal should pump every 1.5–2 years because ground food waste increases tank solids by up to 50%.</p>
+        </div>
+        <div class="faq-item">
+          <h4>How can I avoid paying the $50–$125 buried lid digging fee?</h4>
+          <p>Uncover your concrete septic tank access covers before the pumper truck arrives, or ask your hauler to install a flush PVC surface riser ($350–$600 one-time retrofit) so your lids never have to be dug up again.</p>
+        </div>
+      </div>
+    </section>
+
     <section class="hauler-cta">
       <div style="max-width:720px;">
         <div class="badge-pill" style="margin-bottom:0.4rem;">For NHDES &amp; MassDEP Licensed Septic Companies</div>
@@ -1276,7 +1333,7 @@ footer {
       </div>
       <div style="display:flex;flex-direction:column;gap:0.5rem;min-width:240px;">
         <a class="btn-primary" style="text-align:center;padding:0.75rem 1.2rem;font-size:0.92rem;" href="#top" onclick="document.querySelector('.quote-form [name=name]').focus(); return false;">⭐ Claim Featured Spot ($99/mo) &rarr;</a>
-        <span style="text-align:center;color:#d1fae5;font-size:0.82rem;">Verified NHDES &amp; MassDEP Directory</span>
+        <a style="text-align:center;color:#d1fae5;font-size:0.82rem;text-decoration:underline;" href="mailto:603septicpros@mail.grokbot.com?subject=Featured%20Hauler%20Spot%20($99/mo)">Email 603septicpros@mail.grokbot.com</a> &middot; <a style="text-align:center;color:#6ee7b7;font-size:0.8rem;" href="stats.html">View Live Traffic &amp; Call Clicks &rarr;</a>
       </div>
     </section>
   </main>
@@ -1435,5 +1492,195 @@ async function submitSepticQuote(event, formEl) {
         'Verified Local Septic Pumping & Inspection Companies (' + count + ' Providers)';
     }
   </script>
+
+<!-- Visit & Hauler-Click Tracker + Live Analytics Bar -->
+<style>
+  .tracker-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.45rem;
+    background: rgba(16, 185, 129, 0.16);
+    border: 1px solid rgba(110, 231, 183, 0.4);
+    color: #ecfdf5;
+    padding: 0.22rem 0.65rem;
+    border-radius: 999px;
+    font-size: 0.76rem;
+    font-weight: 700;
+    text-decoration: none;
+  }
+  .tracker-pill:hover { background: rgba(16, 185, 129, 0.28); text-decoration: none; }
+  .faq-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 0.85rem; margin-top: 0.75rem; }
+  .faq-item { background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 10px; padding: 0.85rem 1rem; }
+  .faq-item h4 { font-size: 0.92rem; color: #0f172a; margin-bottom: 0.3rem; }
+  .faq-item p { font-size: 0.84rem; color: #475569; margin: 0; }
+  @media (max-width: 820px) { .faq-grid { grid-template-columns: 1fr; } }
+</style>
+<script>
+(function() {
+  const STORAGE_KEY = 'septic_dir_analytics_v1';
+  const VISITOR_KEY = 'septic_dir_visitor_id';
+  const SESSION_KEY = 'septic_dir_session_counted';
+  const CounterNS = 'nhmasepticdirectory2026';
+
+  function getVisitorId() {
+    try {
+      let vid = localStorage.getItem(VISITOR_KEY);
+      if (!vid) {
+        vid = 'v_' + Math.random().toString(36).slice(2, 10) + '_' + Date.now().toString(36);
+        localStorage.setItem(VISITOR_KEY, vid);
+      }
+      return vid;
+    } catch (e) { return 'v_anon'; }
+  }
+
+  function loadStats() {
+    try {
+      const raw = localStorage.getItem(STORAGE_KEY);
+      if (raw) return JSON.parse(raw);
+    } catch (e) {}
+    return {
+      total_views: 0,
+      unique_visitors: 1,
+      calc_runs: 0,
+      quote_submits: 0,
+      pages: {},
+      towns: {},
+      providers: {},
+      events: []
+    };
+  }
+
+  function saveStats(st) {
+    try { localStorage.setItem(STORAGE_KEY, JSON.stringify(st)); } catch (e) {}
+  }
+
+  function currentPageSlug() {
+    const p = window.location.pathname || '/';
+    if (p.indexOf('/towns/') !== -1) {
+      return p.split('/towns/')[1].replace('.html', '') || 'town';
+    }
+    if (p.indexOf('stats.html') !== -1) return 'stats';
+    return 'home';
+  }
+
+  function recordEvent(type, detail) {
+    const st = loadStats();
+    const slug = currentPageSlug();
+    if (type === 'pageview') {
+      st.total_views = (st.total_views || 0) + 1;
+      st.pages[slug] = (st.pages[slug] || 0) + 1;
+      if (slug !== 'home' && slug !== 'stats') {
+        st.towns[slug] = (st.towns[slug] || 0) + 1;
+      }
+    } else if (type === 'calc') {
+      st.calc_runs = (st.calc_runs || 0) + 1;
+    } else if (type === 'quote') {
+      st.quote_submits = (st.quote_submits || 0) + 1;
+    } else if (type === 'provider_click' && detail && detail.provider) {
+      const pName = detail.provider;
+      if (!st.providers[pName]) st.providers[pName] = { calls: 0, websites: 0, total: 0 };
+      if (detail.kind === 'call') st.providers[pName].calls += 1;
+      else st.providers[pName].websites += 1;
+      st.providers[pName].total += 1;
+    }
+    st.events = st.events || [];
+    st.events.unshift({
+      ts: new Date().toLocaleTimeString([], {hour: '2-digit', minute: '2-digit'}),
+      date: new Date().toLocaleDateString(),
+      type: type,
+      page: slug,
+      detail: detail || {}
+    });
+    if (st.events.length > 40) st.events = st.events.slice(0, 40);
+    saveStats(st);
+
+    // Also post to local /api/track when reachable
+    fetch('/api/track', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        event_type: type,
+        page: window.location.pathname || '/',
+        town: (detail && detail.town) || slug,
+        provider_id: (detail && detail.provider_id) || '',
+        provider_name: (detail && detail.provider) || '',
+        visitor_id: getVisitorId()
+      })
+    }).catch(function() {});
+
+    // Sync global visit counter via CounterAPI
+    if (type === 'pageview') {
+      fetch('https://api.counterapi.dev/v1/' + CounterNS + '/pageviews/up')
+        .then(function(r) { return r.json(); })
+        .then(function(d) {
+          if (d && typeof d.count === 'number') {
+            try { localStorage.setItem('septic_global_views', String(d.count)); } catch (e) {}
+            updateLiveBadges(d.count, st);
+          }
+        })
+        .catch(function() {
+          updateLiveBadges(null, st);
+        });
+    } else {
+      updateLiveBadges(null, st);
+    }
+  }
+
+  function updateLiveBadges(remoteCount, st) {
+    const storedGlobal = parseInt(localStorage.getItem('septic_global_views') || '0', 10);
+    const views = Math.max(remoteCount || 0, storedGlobal, st.total_views || 1);
+    document.querySelectorAll('[data-live-views]').forEach(function(el) {
+      el.textContent = views.toLocaleString() + ' Live Visits';
+    });
+  }
+
+  window.septicTracker = { recordEvent: recordEvent, loadStats: loadStats };
+
+  document.addEventListener('DOMContentLoaded', function() {
+    recordEvent('pageview', { path: window.location.pathname });
+
+    // Attach click tracking to all phone & website links
+    document.querySelectorAll('a.phone-link, a.btn-quote, .featured-banner a').forEach(function(a) {
+      a.addEventListener('click', function() {
+        const row = a.closest('tr');
+        let provName = 'Bodwell\'s Septic Service, LLC';
+        if (row) {
+          const nameEl = row.querySelector('.provider-name');
+          if (nameEl) provName = nameEl.textContent.replace('Featured Hauler', '').trim();
+        }
+        const isCall = (a.getAttribute('href') || '').indexOf('tel:') === 0;
+        recordEvent('provider_click', {
+          provider: provName,
+          kind: isCall ? 'call' : 'website',
+          href: a.getAttribute('href') || ''
+        });
+      });
+    });
+
+    // Hook calculator changes
+    ['calcPeople', 'calcTank', 'calcDisposal', 'calcLid'].forEach(function(id) {
+      const el = document.getElementById(id);
+      if (el) {
+        el.addEventListener('change', function() {
+          recordEvent('calc', { tank: (document.getElementById('calcTank') || {}).value });
+        });
+      }
+    });
+
+    // Hook quote form submit
+    document.querySelectorAll('form.quote-form').forEach(function(f) {
+      f.addEventListener('submit', function() {
+        const townInput = f.querySelector('[name="town"]');
+        const svcInput = f.querySelector('[name="service"]');
+        recordEvent('quote', {
+          town: townInput ? townInput.value : '',
+          service: svcInput ? svcInput.value : ''
+        });
+      });
+    });
+  });
+})();
+</script>
+
 </body>
 </html>

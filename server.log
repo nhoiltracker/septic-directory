@@ -1,0 +1,4 @@
+[septic-directory] Serving /workspace/septic-directory/site and /api/quote on http://127.0.0.1:8088
+127.0.0.1 - - [27/Oct/2026 05:28:49] "POST /api/quote HTTP/1.1" 200 -
+127.0.0.1 - - [27/Oct/2026 05:28:49] "GET /api/health HTTP/1.1" 200 -
+127.0.0.1 - - [27/Oct/2026 05:28:49] "GET /api/health HTTP/1.1" 200 -
