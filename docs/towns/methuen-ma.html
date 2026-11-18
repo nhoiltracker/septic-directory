@@ -861,7 +861,7 @@ async function submitSepticQuote(event, formEl) {
   const STORAGE_KEY = 'septic_dir_analytics_v1';
   const VISITOR_KEY = 'septic_dir_visitor_id';
   const SESSION_KEY = 'septic_dir_session_counted';
-  const CounterNS = 'nhmasepticdirectory2026';
+  const CounterNS = 'nhmasepticdir';
 
   function getVisitorId() {
     try {
@@ -951,12 +951,13 @@ async function submitSepticQuote(event, formEl) {
 
     // Sync global visit counter via CounterAPI
     if (type === 'pageview') {
-      fetch('https://api.counterapi.dev/v1/' + CounterNS + '/pageviews/up')
+      fetch('https://abacus.jasoncameron.dev/hit/' + CounterNS + '/page-' + slug).catch(function(){});
+      fetch('https://abacus.jasoncameron.dev/hit/' + CounterNS + '/pageviews')
         .then(function(r) { return r.json(); })
         .then(function(d) {
-          if (d && typeof d.count === 'number') {
-            try { localStorage.setItem('septic_global_views', String(d.count)); } catch (e) {}
-            updateLiveBadges(d.count, st);
+          if (d && typeof d.value === 'number') {
+            try { localStorage.setItem('septic_global_views', String(d.value)); } catch (e) {}
+            updateLiveBadges(d.value, st);
           }
         })
         .catch(function() {

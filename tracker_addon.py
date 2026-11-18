@@ -41,7 +41,7 @@ TRACKER_SNIPPET = """
   const STORAGE_KEY = 'septic_dir_analytics_v1';
   const VISITOR_KEY = 'septic_dir_visitor_id';
   const SESSION_KEY = 'septic_dir_session_counted';
-  const CounterNS = 'nhmasepticdirectory2026';
+  const CounterNS = 'nhmasepticdir';
 
   function getVisitorId() {
     try {
@@ -131,12 +131,13 @@ TRACKER_SNIPPET = """
 
     // Sync global visit counter via CounterAPI
     if (type === 'pageview') {
-      fetch('https://api.counterapi.dev/v1/' + CounterNS + '/pageviews/up')
+      fetch('https://abacus.jasoncameron.dev/hit/' + CounterNS + '/page-' + slug).catch(function(){});
+      fetch('https://abacus.jasoncameron.dev/hit/' + CounterNS + '/pageviews')
         .then(function(r) { return r.json(); })
         .then(function(d) {
-          if (d && typeof d.count === 'number') {
-            try { localStorage.setItem('septic_global_views', String(d.count)); } catch (e) {}
-            updateLiveBadges(d.count, st);
+          if (d && typeof d.value === 'number') {
+            try { localStorage.setItem('septic_global_views', String(d.value)); } catch (e) {}
+            updateLiveBadges(d.value, st);
           }
         })
         .catch(function() {
@@ -441,6 +442,15 @@ def build_stats_page(data, css):
         }}).join('');
       }}
 
+      fetch('https://abacus.jasoncameron.dev/get/nhmasepticdir/pageviews').then(function(r) {{ return r.json(); }}).then(function(d) {{
+        if (d && typeof d.value === 'number') document.getElementById('statTotalViews').textContent = d.value.toLocaleString();
+      }}).catch(function() {{}});
+      document.querySelectorAll('[id^="town-stat-"]').forEach(function(cell) {{
+        const slug = cell.id.replace('town-stat-', '');
+        fetch('https://abacus.jasoncameron.dev/get/nhmasepticdir/page-' + slug).then(function(r) {{ return r.json(); }}).then(function(d) {{
+          if (d && typeof d.value === 'number') cell.textContent = d.value;
+        }}).catch(function() {{}});
+      }});
       // Also merge from local server /api/stats if running
       fetch('/api/stats').then(function(r) {{ return r.json(); }}).then(function(srv) {{
         if (srv && srv.total_views) {{
